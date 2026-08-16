@@ -424,15 +424,24 @@
           </article>
 
           <article class="card">
-            <img class="art open-zoom" src="images/kubernetesConfig.svg" alt="Kubernetes deployment configuration diagram" data-src="images/kubernetesConfig.svg" data-title="Kubernetes Deployment Config" />
+            <div class="art" style="background: linear-gradient(135deg, #e8f4ff 0%, #f0fdf4 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; text-align: center;">
+              <div style="font-size: 40px; margin-bottom: 12px;">📋</div>
+              <div style="font-size: 14px; font-weight: 600; color: #2c6fdb;">Configuration Details</div>
+              <div style="font-size: 12px; color: #53657b; margin-top: 8px;">Click to view complete documentation</div>
+            </div>
             <div class="content">
               <h3>Kubernetes Deployment Config</h3>
               <p>
                 Production-grade Order Microservice deployment with pod replicas, resource management, health probes, graceful shutdown, and autoscaling strategy for Kubernetes clusters.
               </p>
+              <div style="display: grid; gap: 8px; margin: 12px 0; font-size: 12px; color: #53657b;">
+                <div>• Pod replicas & rolling updates</div>
+                <div>• Resource requests & limits</div>
+                <div>• Health probes (startup, liveness, readiness)</div>
+                <div>• Autoscaling challenges & cost analysis</div>
+              </div>
               <div class="actions">
-                <button class="btn open-zoom" type="button" data-src="images/kubernetesConfig.svg" data-title="Kubernetes Deployment Config">Open SVG</button>
-                <a class="btn secondary" href="diagrams/kubernetesConfig.md" target="_blank" rel="noreferrer">Source</a>
+                <a class="btn" href="diagrams/kubernetesConfig.md" target="_blank" rel="noreferrer" style="flex: 1;">View Full Documentation</a>
               </div>
             </div>
           </article>
