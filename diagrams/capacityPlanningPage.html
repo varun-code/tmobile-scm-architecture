@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capacity & Performance Targets</title>
+    <style>
+      :root {
+        --bg: #f3f7fb;
+        --bg-deep: #e9f0f8;
+        --panel: #ffffff;
+        --panel-alt: #f8fbff;
+        --soft: #1f2e3d;
+        --muted: #53657b;
+        --line: rgba(70, 92, 112, 0.14);
+        --primary: #2c6fdb;
+        --primary-2: #4a9ef6;
+        --accent: #2aa889;
+        --warning: #df9f2b;
+        --shadow: rgba(27, 52, 81, 0.12);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+        color: var(--soft);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(44, 111, 219, 0.08);
+        border: 1px solid rgba(44, 111, 219, 0.18);
+        color: var(--primary);
+        padding: 10px 16px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 22px;
+      }
+
+      .header {
+        margin-bottom: 28px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(94, 160, 255, 0.08);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--primary-2);
+      }
+
+      h1 {
+        margin: 16px 0 10px;
+        font-size: clamp(2.1rem, 4vw, 3.6rem);
+        letter-spacing: -0.05em;
+        color: var(--primary);
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.04rem;
+      }
+
+      .panel {
+        background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 20px 40px var(--shadow);
+        overflow: hidden;
+      }
+
+      .panel-header {
+        background: linear-gradient(90deg, #eff6ff 0%, #edf5ff 100%);
+        border-bottom: 1px solid var(--line);
+        padding: 18px 22px;
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--primary);
+      }
+
+      .content-box {
+        padding: 22px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px;
+      }
+
+      .card h3 {
+        margin: 0 0 12px;
+        font-size: 1.05rem;
+        color: var(--primary);
+      }
+
+      .metric-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 8px;
+      }
+
+      .metric-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(70, 92, 112, 0.08);
+        color: var(--soft);
+      }
+
+      .metric-list li:last-child {
+        border-bottom: none;
+      }
+
+      .metric-list strong {
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .metric-list span {
+        color: var(--primary);
+        font-weight: 700;
+        text-align: right;
+      }
+
+      .summary {
+        margin-top: 24px;
+        background: linear-gradient(180deg, #f9fbff 0%, #eef6ff 100%);
+        border: 1px solid rgba(44, 111, 219, 0.15);
+        border-radius: 14px;
+        padding: 18px 20px;
+      }
+
+      .summary h3 {
+        margin: 0 0 10px;
+        color: var(--primary);
+      }
+
+      .summary ul {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--soft);
+      }
+
+      .summary li + li {
+        margin-top: 8px;
+      }
+
+      @media (max-width: 640px) {
+        .content-box {
+          padding: 16px;
+        }
+
+        .metric-list li {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="../index.html" class="back-button">← Back to Portfolio</a>
+
+      <header class="header">
+        <div class="eyebrow">Capacity Planning</div>
+        <h1>Capacity & Performance Targets</h1>
+        <p class="subtitle">Operational SLA and performance expectations for the T-Mobile SCM platform.</p>
+      </header>
+
+      <section class="panel">
+        <div class="panel-header">Performance Targets</div>
+        <div class="content-box">
+          <div class="grid">
+            <div class="card">
+              <h3>API Endpoints</h3>
+              <ul class="metric-list">
+                <li><strong>Create Purchase Order</strong><span>P99 &lt; 500ms / 100 req/sec</span></li>
+                <li><strong>Get Purchase Order</strong><span>P99 &lt; 200ms / cache &lt; 50ms</span></li>
+                <li><strong>Update Purchase Order</strong><span>P99 &lt; 1000ms / 50 req/sec</span></li>
+                <li><strong>Query PO List</strong><span>P99 &lt; 2000ms</span></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Database</h3>
+              <ul class="metric-list">
+                <li><strong>Query Response Time</strong><span>P95 &lt; 100ms</span></li>
+                <li><strong>Connection Pool</strong><span>30 max / 5 min idle</span></li>
+                <li><strong>Lock Wait</strong><span>&lt; 5s</span></li>
+                <li><strong>Transaction Time</strong><span>&lt; 5s</span></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Message Queue (Kafka)</h3>
+              <ul class="metric-list">
+                <li><strong>End-to-End Latency</strong><span>&lt; 5s</span></li>
+                <li><strong>Throughput</strong><span>10,000 msg/sec</span></li>
+                <li><strong>Topic Retention</strong><span>7 days</span></li>
+                <li><strong>Consumer Lag</strong><span>&lt; 1m normal / &lt; 5m alert</span></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Cache (Redis)</h3>
+              <ul class="metric-list">
+                <li><strong>Hit Rate</strong><span>&gt; 80%</span></li>
+                <li><strong>Response Time</strong><span>&lt; 10ms</span></li>
+                <li><strong>Memory Usage</strong><span>&lt; 50 GB</span></li>
+                <li><strong>TTL</strong><span>30 min default</span></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Batch Jobs (FBDI)</h3>
+              <ul class="metric-list">
+                <li><strong>Processing Time</strong><span>1-5 mins / 1000 records</span></li>
+                <li><strong>Frequency</strong><span>Nightly @ 00:30 UTC</span></li>
+                <li><strong>Success Rate</strong><span>&gt; 99.5%</span></li>
+                <li><strong>Retry Attempts</strong><span>3</span></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Error Rates</h3>
+              <ul class="metric-list">
+                <li><strong>HTTP 4xx</strong><span>&lt; 1%</span></li>
+                <li><strong>HTTP 5xx</strong><span>&lt; 0.1%</span></li>
+                <li><strong>Kafka Failures</strong><span>&lt; 0.01%</span></li>
+                <li><strong>Oracle API Failures</strong><span>&lt; 0.5%</span></li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <h3>Availability</h3>
+              <ul class="metric-list">
+                <li><strong>Service Uptime</strong><span>99.95%</span></li>
+                <li><strong>Database Failover</strong><span>RTO &lt; 4 hours</span></li>
+                <li><strong>Kafka Failover</strong><span>RTO &lt; 15 min</span></li>
+                <li><strong>Cache Recovery</strong><span>RTO &lt; 10 min</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="summary">
+            <h3>Operational Objective</h3>
+            <ul>
+              <li>Keep user-facing API latency within defined SLA thresholds under expected transaction volume.</li>
+              <li>Protect downstream Oracle and Kafka dependencies with healthy throughput and low failure rates.</li>
+              <li>Maintain availability targets and recovery objectives for order processing and batch operations.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

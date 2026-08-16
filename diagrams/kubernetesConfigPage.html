@@ -6,12 +6,27 @@
     <title>Kubernetes Deployment Configuration</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <style>
+        :root {
+            --bg: #f3f7fb;
+            --bg-deep: #e9f0f8;
+            --panel: #ffffff;
+            --panel-alt: #f8fbff;
+            --soft: #1f2e3d;
+            --muted: #53657b;
+            --line: rgba(70, 92, 112, 0.14);
+            --primary: #2c6fdb;
+            --primary-2: #4a9ef6;
+            --accent: #2aa889;
+            --warning: #df9f2b;
+            --shadow: rgba(27, 52, 81, 0.12);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(180deg, #0f172a 0%, #1a2847 100%);
-            color: #e2e8f0;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+            color: var(--soft);
             line-height: 1.6;
         }
         
@@ -28,14 +43,14 @@
         
         h1 {
             font-size: 2.5rem;
-            color: #60a5fa;
+            color: var(--primary);
             margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
+            text-shadow: none;
         }
         
         .subtitle {
             font-size: 1.1rem;
-            color: #94a3b8;
+            color: var(--muted);
         }
         
         .section {
@@ -62,13 +77,16 @@
         }
         
         .description {
-            background: rgba(30, 58, 138, 0.4);
-            border-left: 4px solid #60a5fa;
+            background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 12px 28px var(--shadow);
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 30px;
             font-size: 1rem;
             line-height: 1.8;
+            color: var(--soft);
         }
         
         .code-block {
@@ -122,11 +140,11 @@
         }
         
         .spec-card {
-            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(14, 165, 233, 0.1));
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            border-radius: 8px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+            border: 1px solid var(--line);
+            border-radius: 12px;
             padding: 20px;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 12px 28px var(--shadow);
         }
         
         .spec-card h3 {
@@ -143,11 +161,11 @@
         }
         
         .spec-item strong {
-            color: #cbd5e1;
+            color: var(--soft);
         }
         
         .spec-item span {
-            color: #fbbf24;
+            color: var(--primary);
         }
         
         .comparison-table {
@@ -452,7 +470,7 @@ spec:
       stabilizationWindowSeconds: 30
       policies:
       - type: Percent
-        value: 100
+        value: 50
         periodSeconds: 15
       selectPolicy: Max
     
@@ -460,7 +478,7 @@ spec:
       stabilizationWindowSeconds: 300
       policies:
       - type: Percent
-        value: 50
+        value: 25
         periodSeconds: 60</code></pre>
             </div>
         </div>

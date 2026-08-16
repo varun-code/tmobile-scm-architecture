@@ -497,6 +497,99 @@
           </article>
 
           <article class="card">
+            <div class="art" style="background: linear-gradient(135deg, #eaf7ff 0%, #eef9ff 100%); display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 20px; text-align: left; overflow-y: auto;">
+              <div style="font-weight: 700; color: #2c6fdb; margin-bottom: 12px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;">Capacity Planning</div>
+              <div style="font-size: 11px; line-height: 1.8; color: #1f2e3d; width: 100%;">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 10px;">
+                  <div><strong>API SLA:</strong> P99 &lt; 500ms</div>
+                  <div><strong>Kafka:</strong> 10k msg/sec</div>
+                  <div><strong>Redis:</strong> &gt;80% hit rate</div>
+                  <div><strong>Availability:</strong> 99.95%</div>
+                </div>
+                <div style="border-top: 1px solid rgba(44,111,219,0.2); padding-top: 8px; margin-top: 8px;">
+                  <div style="font-weight: 700; color: #2c6fdb; margin-bottom: 6px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;">TARGETS</div>
+                  <div style="font-size: 10px;">
+                    <div>• DB latency &lt; 100ms P95</div>
+                    <div>• Queue lag &lt; 1min</div>
+                    <div>• Error rate &lt; 0.1%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <h3>Capacity & Performance Targets</h3>
+              <p>
+                Operational performance baselines covering API latency, database behavior, Kafka throughput, Redis efficiency, batch jobs, and availability targets.
+              </p>
+              <div class="actions">
+                <a class="btn" href="diagrams/capacityPlanningPage.html" target="_blank" rel="noreferrer" style="flex: 1;">View Capacity Plan</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="art" style="background: linear-gradient(135deg, #edf6ff 0%, #eef8ff 100%); display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 20px; text-align: left; overflow-y: auto;">
+              <div style="font-weight: 700; color: #2c6fdb; margin-bottom: 12px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;">LLD</div>
+              <div style="font-size: 11px; line-height: 1.8; color: #1f2e3d; width: 100%;">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 10px;">
+                  <div><strong>Template:</strong> Spring Boot</div>
+                  <div><strong>Kafka:</strong> Producer/Consumer</div>
+                  <div><strong>Data:</strong> JPA + Redis</div>
+                  <div><strong>Security:</strong> JWT + OAuth2</div>
+                </div>
+                <div style="border-top: 1px solid rgba(44,111,219,0.2); padding-top: 8px; margin-top: 8px;">
+                  <div style="font-weight: 700; color: #2c6fdb; margin-bottom: 6px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;">IMPLEMENTATION</div>
+                  <div style="font-size: 10px;">
+                    <div>• Controller + Service layers</div>
+                    <div>• Oracle + Kafka integrations</div>
+                    <div>• Health probes and caching</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <h3>LLD - Spring Boot Template</h3>
+              <p>
+                Low-level design for a reusable Spring Boot microservice template with Kafka, Redis, JPA, Oracle integration, health endpoints, and controller/service implementation patterns.
+              </p>
+              <div class="actions">
+                <a class="btn" href="diagrams/springBootMicroserviceTemplatePage.html" target="_blank" rel="noreferrer" style="flex: 1;">View LLD Template</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="art" style="background: linear-gradient(135deg, #edf6ff 0%, #eef8ff 100%); display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 20px; text-align: left; overflow-y: auto;">
+              <div style="font-weight: 700; color: #2c6fdb; margin-bottom: 12px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;">API CONTRACT</div>
+              <div style="font-size: 11px; line-height: 1.8; color: #1f2e3d; width: 100%;">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 10px;">
+                  <div><strong>Auth:</strong> OAuth2 JWT</div>
+                  <div><strong>Headers:</strong> X-Tenant-ID</div>
+                  <div><strong>Validation:</strong> Input + Business rules</div>
+                  <div><strong>Errors:</strong> HTTP + Error Codes</div>
+                </div>
+                <div style="border-top: 1px solid rgba(44,111,219,0.2); padding-top: 8px; margin-top: 8px;">
+                  <div style="font-weight: 700; color: #2c6fdb; margin-bottom: 6px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;">INCLUDES</div>
+                  <div style="font-size: 10px;">
+                    <div>• Request/response schema</div>
+                    <div>• Validation checklist</div>
+                    <div>• Standard error model</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <h3>Order Service API Contract</h3>
+              <p>
+                Security model, endpoint contract, validation rules, request/response payloads, and standard error handling for the Order Service APIs.
+              </p>
+              <div class="actions">
+                <a class="btn" href="diagrams/orderServiceApiContractPage.html" target="_blank" rel="noreferrer" style="flex: 1;">View API Contract</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
             <img class="art open-zoom" src="images/Integration_Patterns.svg" alt="Integration patterns diagram" data-src="images/Integration_Patterns.svg" data-title="Integration Patterns" />
             <div class="content">
               <h3>Integration Patterns</h3>
