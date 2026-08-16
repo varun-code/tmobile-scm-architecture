@@ -1,0 +1,233 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f3f7fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9f0f8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="nodeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f2f8ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="podGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f4ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d0e8ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="alertGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffe8e8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd0d0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bgGradient)"/>
+
+  <!-- Title -->
+  <text x="600" y="35" font-size="28" font-weight="700" text-anchor="middle" fill="#1f2e3d">
+    Kubernetes Deployment & Autoscaling Dynamics
+  </text>
+
+  <!-- Section 1: Pod Architecture (Left Side) -->
+  <g>
+    <!-- Section Title -->
+    <text x="50" y="80" font-size="16" font-weight="600" fill="#2c6fdb">
+      Pod Deployment Architecture
+    </text>
+
+    <!-- Kubernetes Node 1 -->
+    <rect x="30" y="100" width="180" height="280" fill="url(#nodeGradient)" stroke="#2c6fdb" stroke-width="2" rx="8"/>
+    <text x="120" y="125" font-size="12" font-weight="600" text-anchor="middle" fill="#2c6fdb">
+      K8s Node 1
+    </text>
+
+    <!-- Pod 1 -->
+    <rect x="45" y="140" width="150" height="100" fill="url(#podGradient)" stroke="#4a9ef6" stroke-width="2" rx="6"/>
+    <text x="120" y="160" font-size="11" font-weight="600" text-anchor="middle" fill="#1f2e3d">order-service-001</text>
+    <text x="120" y="178" font-size="9" fill="#53657b">CPU: 250m → 1000m</text>
+    <text x="120" y="190" font-size="9" fill="#53657b">Memory: 512Mi → 2Gi</text>
+    <text x="120" y="202" font-size="9" fill="#53657b">Status: Ready</text>
+    <circle cx="170" cy="210" r="5" fill="#2aa889"/>
+
+    <!-- Pod 2 -->
+    <rect x="45" y="250" width="150" height="100" fill="url(#podGradient)" stroke="#4a9ef6" stroke-width="2" rx="6"/>
+    <text x="120" y="270" font-size="11" font-weight="600" text-anchor="middle" fill="#1f2e3d">order-service-002</text>
+    <text x="120" y="288" font-size="9" fill="#53657b">CPU: 250m → 1000m</text>
+    <text x="120" y="300" font-size="9" fill="#53657b">Memory: 512Mi → 2Gi</text>
+    <text x="120" y="312" font-size="9" fill="#53657b">Status: Ready</text>
+    <circle cx="170" cy="320" r="5" fill="#2aa889"/>
+
+    <!-- Kubernetes Node 2 -->
+    <rect x="230" y="100" width="180" height="280" fill="url(#nodeGradient)" stroke="#2c6fdb" stroke-width="2" rx="8"/>
+    <text x="320" y="125" font-size="12" font-weight="600" text-anchor="middle" fill="#2c6fdb">
+      K8s Node 2
+    </text>
+
+    <!-- Pod 3 -->
+    <rect x="245" y="140" width="150" height="100" fill="url(#podGradient)" stroke="#4a9ef6" stroke-width="2" rx="6"/>
+    <text x="320" y="160" font-size="11" font-weight="600" text-anchor="middle" fill="#1f2e3d">order-service-003</text>
+    <text x="320" y="178" font-size="9" fill="#53657b">CPU: 250m → 1000m</text>
+    <text x="320" y="190" font-size="9" fill="#53657b">Memory: 512Mi → 2Gi</text>
+    <text x="320" y="202" font-size="9" fill="#53657b">Status: Ready</text>
+    <circle cx="400" cy="210" r="5" fill="#2aa889"/>
+
+    <!-- Pod 4 (Pending - scaling up) -->
+    <rect x="245" y="250" width="150" height="100" fill="url(#alertGradient)" stroke="#df9f2b" stroke-width="2" stroke-dasharray="5,5" rx="6"/>
+    <text x="320" y="270" font-size="11" font-weight="600" text-anchor="middle" fill="#1f2e3d">order-service-004</text>
+    <text x="320" y="288" font-size="9" fill="#53657b">CPU: 250m → 1000m</text>
+    <text x="320" y="300" font-size="9" fill="#53657b">Memory: 512Mi → 2Gi</text>
+    <text x="320" y="312" font-size="9" fill="#d97706">Status: Pending...</text>
+    <circle cx="400" cy="320" r="5" fill="#df9f2b"/>
+
+    <!-- Nodes Summary -->
+    <rect x="30" y="390" width="380" height="60" fill="#f7faff" stroke="#2c6fdb" stroke-width="1" rx="6"/>
+    <text x="50" y="410" font-size="11" font-weight="600" fill="#1f2e3d">Min Replicas: 3 (Always running)</text>
+    <text x="50" y="430" font-size="11" font-weight="600" fill="#1f2e3d">Max Replicas: 15 (Burst capacity)</text>
+    <text x="50" y="445" font-size="9" fill="#53657b">Anti-affinity: Pods distributed across nodes</text>
+  </g>
+
+  <!-- Section 2: Autoscaling Challenges (Middle) -->
+  <g>
+    <!-- Section Title -->
+    <text x="450" y="80" font-size="16" font-weight="600" fill="#2c6fdb">
+      Autoscaling Challenges & Latency
+    </text>
+
+    <!-- Challenge 1: Scheduling Delay -->
+    <rect x="430" y="100" width="160" height="140" fill="#fff5f5" stroke="#df9f2b" stroke-width="2" rx="6"/>
+    <text x="510" y="120" font-size="11" font-weight="600" text-anchor="middle" fill="#d97706">Scheduling Delays</text>
+    <text x="445" y="140" font-size="9" fill="#1f2e3d">• Image pull: 10-15s</text>
+    <text x="445" y="155" font-size="9" fill="#1f2e3d">• Pod startup: 30s</text>
+    <text x="445" y="170" font-size="9" fill="#1f2e3d">• App init: 15-20s</text>
+    <text x="445" y="190" font-size="10" font-weight="600" text-anchor="start" fill="#d97706">
+      ⏱ Total: ~60 seconds
+    </text>
+
+    <!-- Challenge 2: Oscillation -->
+    <rect x="600" y="100" width="160" height="140" fill="#fff5f5" stroke="#df9f2b" stroke-width="2" rx="6"/>
+    <text x="680" y="120" font-size="11" font-weight="600" text-anchor="middle" fill="#d97706">Scale Oscillation</text>
+    <text x="615" y="140" font-size="9" fill="#1f2e3d">• Rapid scale up/down</text>
+    <text x="615" y="155" font-size="9" fill="#1f2e3d">• Pod churn waste</text>
+    <text x="615" y="170" font-size="9" fill="#1f2e3d">• Increased costs</text>
+    <text x="615" y="190" font-size="10" font-weight="600" text-anchor="start" fill="#d97706">
+      💰 Cost spike
+    </text>
+
+    <!-- Challenge 3: Resource Fragmentation -->
+    <rect x="770" y="100" width="160" height="140" fill="#fff5f5" stroke="#df9f2b" stroke-width="2" rx="6"/>
+    <text x="850" y="120" font-size="11" font-weight="600" text-anchor="middle" fill="#d97706">Resource Waste</text>
+    <text x="785" y="140" font-size="9" fill="#1f2e3d">• Uneven allocation</text>
+    <text x="785" y="155" font-size="9" fill="#1f2e3d">• Node provisioning</text>
+    <text x="785" y="170" font-size="9" fill="#1f2e3d">• Unused capacity</text>
+    <text x="785" y="190" font-size="10" font-weight="600" text-anchor="start" fill="#d97706">
+      📊 Fragmentation
+    </text>
+
+    <!-- Scaling Timeline -->
+    <text x="450" y="270" font-size="12" font-weight="600" fill="#1f2e3d">
+      Autoscaling Timeline
+    </text>
+    
+    <!-- Timeline bars -->
+    <rect x="430" y="290" width="140" height="30" fill="#e8f4ff" stroke="#2c6fdb" stroke-width="1" rx="4"/>
+    <text x="440" y="307" font-size="9" fill="#1f2e3d">Real-time spike ↑↑↑</text>
+
+    <rect x="430" y="330" width="140" height="30" fill="#fff5f5" stroke="#df9f2b" stroke-width="1" rx="4"/>
+    <text x="440" y="347" font-size="9" fill="#d97706">Metrics lag (30-45s)</text>
+
+    <rect x="430" y="370" width="140" height="30" fill="#fff5f5" stroke="#df9f2b" stroke-width="1" rx="4"/>
+    <text x="440" y="387" font-size="9" fill="#d97706">Scaling decision</text>
+
+    <rect x="430" y="410" width="140" height="30" fill="#fff5f5" stroke="#df9f2b" stroke-width="1" rx="4"/>
+    <text x="440" y="427" font-size="9" fill="#d97706">Pod provisioning</text>
+
+    <!-- Cost Metrics Table -->
+    <text x="600" y="270" font-size="12" font-weight="600" fill="#1f2e3d">
+      Cost Impact Analysis
+    </text>
+
+    <rect x="600" y="290" width="330" height="160" fill="#f7faff" stroke="#2c6fdb" stroke-width="1" rx="6"/>
+    
+    <!-- Table header -->
+    <text x="615" y="310" font-size="9" font-weight="600" fill="#2c6fdb">Strategy</text>
+    <text x="710" y="310" font-size="9" font-weight="600" fill="#2c6fdb">Response</text>
+    <text x="810" y="310" font-size="9" font-weight="600" fill="#2c6fdb">Cost/Mo</text>
+    <text x="880" y="310" font-size="9" font-weight="600" fill="#2c6fdb">Rating</text>
+
+    <!-- Row 1: Conservative -->
+    <line x1="600" y1="320" x2="930" y2="320" stroke="#2c6fdb" stroke-width="0.5" opacity="0.3"/>
+    <text x="615" y="335" font-size="8" fill="#1f2e3d">Conservative (3-5)</text>
+    <text x="710" y="335" font-size="8" fill="#1f2e3d">500-2000ms</text>
+    <text x="810" y="335" font-size="8" fill="#1f2e3d">$60</text>
+    <text x="880" y="335" font-size="8" fill="#df9f2b">⭐</text>
+
+    <!-- Row 2: Balanced -->
+    <line x1="600" y1="345" x2="930" y2="345" stroke="#2c6fdb" stroke-width="0.5" opacity="0.3"/>
+    <text x="615" y="360" font-size="8" fill="#1f2e3d">Balanced (5-10)</text>
+    <text x="710" y="360" font-size="8" fill="#1f2e3d">100-500ms</text>
+    <text x="810" y="360" font-size="8" fill="#1f2e3d">$122</text>
+    <text x="880" y="360" font-size="8" fill="#2aa889">⭐⭐⭐</text>
+
+    <!-- Row 3: Aggressive -->
+    <line x1="600" y1="370" x2="930" y2="370" stroke="#2c6fdb" stroke-width="0.5" opacity="0.3"/>
+    <text x="615" y="385" font-size="8" fill="#1f2e3d">Aggressive (10-15)</text>
+    <text x="710" y="385" font-size="8" fill="#1f2e3d">50-200ms</text>
+    <text x="810" y="385" font-size="8" fill="#1f2e3d">$183</text>
+    <text x="880" y="385" font-size="8" fill="#2aa889">⭐⭐⭐⭐</text>
+
+    <!-- Row 4: Predictive -->
+    <line x1="600" y1="395" x2="930" y2="395" stroke="#2c6fdb" stroke-width="0.5" opacity="0.3"/>
+    <text x="615" y="410" font-size="8" fill="#1f2e3d">HPA + KEDA</text>
+    <text x="710" y="410" font-size="8" fill="#1f2e3d">50-300ms</text>
+    <text x="810" y="410" font-size="8" fill="#1f2e3d">$100</text>
+    <text x="880" y="410" font-size="8" fill="#2aa889">⭐⭐⭐⭐⭐</text>
+  </g>
+
+  <!-- Section 3: Health Probes & Management (Bottom Right) -->
+  <g>
+    <!-- Section Title -->
+    <text x="450" y="490" font-size="16" font-weight="600" fill="#2c6fdb">
+      Pod Health Management
+    </text>
+
+    <!-- Startup Probe -->
+    <rect x="430" y="510" width="150" height="100" fill="#f0f9ff" stroke="#2c6fdb" stroke-width="2" rx="6"/>
+    <text x="505" y="530" font-size="11" font-weight="600" text-anchor="middle" fill="#2c6fdb">Startup Probe</text>
+    <text x="445" y="550" font-size="8" fill="#1f2e3d">• 10s intervals</text>
+    <text x="445" y="563" font-size="8" fill="#1f2e3d">• 30 retries = 5min</text>
+    <text x="445" y="576" font-size="8" fill="#1f2e3d">• Allows app init</text>
+    <text x="445" y="595" font-size="9" font-weight="600" fill="#2c6fdb">Max startup: 5 min</text>
+
+    <!-- Liveness Probe -->
+    <rect x="600" y="510" width="150" height="100" fill="#f0f9ff" stroke="#2c6fdb" stroke-width="2" rx="6"/>
+    <text x="675" y="530" font-size="11" font-weight="600" text-anchor="middle" fill="#2c6fdb">Liveness Probe</text>
+    <text x="615" y="550" font-size="8" fill="#1f2e3d">• 10s intervals</text>
+    <text x="615" y="563" font-size="8" fill="#1f2e3d">• 3 failures → restart</text>
+    <text x="615" y="576" font-size="8" fill="#1f2e3d">• Dead pod recovery</text>
+    <text x="615" y="595" font-size="9" font-weight="600" fill="#2c6fdb">Recovery: 30 sec</text>
+
+    <!-- Readiness Probe -->
+    <rect x="770" y="510" width="150" height="100" fill="#f0f9ff" stroke="#2c6fdb" stroke-width="2" rx="6"/>
+    <text x="845" y="530" font-size="11" font-weight="600" text-anchor="middle" fill="#2c6fdb">Readiness Probe</text>
+    <text x="785" y="550" font-size="8" fill="#1f2e3d">• 5s intervals</text>
+    <text x="785" y="563" font-size="8" fill="#1f2e3d">• 2 failures → exclude</text>
+    <text x="785" y="576" font-size="8" fill="#1f2e3d">• Traffic isolation</text>
+    <text x="785" y="595" font-size="9" font-weight="600" fill="#2c6fdb">Response: 10 sec</text>
+
+    <!-- Graceful Shutdown -->
+    <rect x="430" y="620" width="490" height="70" fill="#f0fdf4" stroke="#2aa889" stroke-width="2" rx="6"/>
+    <text x="450" y="640" font-size="11" font-weight="600" fill="#2aa889">Graceful Termination</text>
+    <text x="450" y="660" font-size="9" fill="#1f2e3d">• terminationGracePeriodSeconds: 60s | preStop sleep: 10s | Drains in-flight connections</text>
+    <text x="450" y="675" font-size="9" fill="#1f2e3d">• Prevents abrupt request failures during pod scale-down or updates</text>
+  </g>
+
+  <!-- Key Recommendations Box (Bottom) -->
+  <rect x="30" y="700" width="1140" height="80" fill="#f0fdf4" stroke="#2aa889" stroke-width="2" rx="8"/>
+  <text x="50" y="725" font-size="12" font-weight="700" fill="#2aa889">
+    ✓ Recommended: Hybrid HPA + KEDA Strategy
+  </text>
+  <text x="50" y="745" font-size="9" fill="#1f2e3d">
+    • Base load: 3 reserved instances (60% cost savings) | Expected load: 5-8 on-demand nodes | Peak load: KEDA scales to 15 based on Kafka lag
+  </text>
+  <text x="50" y="763" font-size="9" fill="#1f2e3d">
+    • Monitor cost per event | Use pod disruption budgets | Implement descheduler for consolidation | Cache application state for faster startups
+  </text>
+</svg>
