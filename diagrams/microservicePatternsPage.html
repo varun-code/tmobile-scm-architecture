@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices Design Patterns</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #0f172a 0%, #1a2847 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #a78bfa;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(167, 139, 250, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #c084fc;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #a78bfa;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: linear-gradient(180deg, #a78bfa, #c084fc);
+            border-radius: 2px;
+        }
+        
+        .pattern-header {
+            font-size: 1.5rem;
+            color: #e9d5ff;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pattern-tag {
+            display: inline-block;
+            background: #a78bfa;
+            color: #0f172a;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .description {
+            background: rgba(88, 28, 135, 0.3);
+            border-left: 4px solid #a78bfa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        
+        .code-block {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .code-header {
+            background: linear-gradient(90deg, #0f172a, #1a2847);
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            font-weight: 600;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .code-header span {
+            display: inline-block;
+            background: #a78bfa;
+            color: #0f172a;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        
+        pre {
+            padding: 20px;
+            overflow-x: auto;
+            font-size: 0.95rem;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+        }
+        
+        .hljs {
+            background: transparent;
+            color: #e2e8f0;
+        }
+        
+        .pattern-benefits {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .pattern-benefits h4 {
+            color: #a78bfa;
+            margin-bottom: 12px;
+        }
+        
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        
+        .benefit-item::before {
+            content: '✓';
+            color: #a78bfa;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(90deg, #1e293b, #0f172a);
+            color: #a78bfa;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #a78bfa;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .comparison-table tr:hover {
+            background: rgba(167, 139, 250, 0.1);
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(167, 139, 250, 0.2);
+            border: 1px solid #a78bfa;
+            color: #a78bfa;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background: rgba(167, 139, 250, 0.3);
+            transform: translateX(-4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../index.html" class="back-button">← Back to Portfolio</a>
+        
+        <div class="header">
+            <h1>🏗️ Microservices Design Patterns</h1>
+            <p class="subtitle">Order Service - Industry-Standard Patterns for Resilience & Scale</p>
+        </div>
+        
+        <!-- Pattern 1: Saga -->
+        <div class="section">
+            <div class="pattern-header">
+                <span class="pattern-tag">PATTERN 1</span>
+                Saga Pattern (Distributed Transactions)
+            </div>
+            
+            <div class="description">
+                The Saga pattern orchestrates multi-step workflows across distributed services without relying on distributed transactions. It's ideal for long-running business processes like order creation workflows. Each step is independent, and if one fails, compensating transactions run in reverse order.
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>PYTHON</span> Order Creation Saga with Compensation
+                </div>
+                <pre><code class="language-python"># Order Service uses Saga for Order approval workflow
+
+class OrderCreationSaga:
+    """
+    Orchestrates multi-step Order workflow across services
+    
+    Steps:
+    1. Validate Order with Order Service
+    2. Reserve Inventory with Inventory Service
+    3. Validate Budget with Finance Service
+    4. Submit to Oracle with ERP Service
+    """
+    
+    async def execute_order_creation_saga(self, order_request):
+        saga_id = uuid.uuid4()
+        saga_state = SagaState(saga_id)
+        
+        try:
+            # Step 1: Order Validation
+            step1 = await self.order_service.validate_order(order_request)
+            saga_state.add_step("order_validation", step1.id)
+            
+            # Step 2: Inventory Reservation
+            step2 = await self.inventory_service.reserve_items(
+                order_request.line_items
+            )
+            saga_state.add_step("inventory_reservation", step2.reservation_id)
+            
+            # Step 3: Budget Validation
+            step3 = await self.finance_service.validate_budget(
+                order_request.total_amount,
+                order_request.cost_center
+            )
+            saga_state.add_step("budget_validation", step3.approval_id)
+            
+            # Step 4: Oracle Submission
+            step4 = await self.erp_service.submit_order_to_oracle(order_request)
+            saga_state.add_step("oracle_submission", step4.oracle_order_id)
+            
+            # All steps succeeded
+            saga_state.mark_completed()
+            
+            # Publish success event
+            await self.kafka_producer.publish_event(
+                "SCM_Order_Approved",
+                {
+                    "sagaId": saga_id,
+                    "oracleOrderId": step4.oracle_order_id,
+                    "status": "APPROVED"
+                }
+            )
+            
+            return saga_state
+            
+        except Exception as e:
+            # Compensate in reverse order
+            await self._compensate_saga(saga_state, e)
+            raise OrderSagaException(saga_state, e)
+    
+    async def _compensate_saga(self, saga_state, error):
+        """Undo steps in reverse order (compensation logic)"""
+        for step in reversed(saga_state.completed_steps):
+            try:
+                if step.name == "oracle_submission":
+                    await self.erp_service.cancel_order(step.reference_id)
+                elif step.name == "inventory_reservation":
+                    await self.inventory_service.release_reservation(
+                        step.reference_id
+                    )
+                elif step.name == "budget_validation":
+                    await self.finance_service.release_budget(
+                        step.reference_id
+                    )
+            except Exception as comp_error:
+                # Log compensation failure for manual intervention
+                await self.alert_operations_team(saga_state, comp_error)</code></pre>
+            </div>
+            
+            <div class="pattern-benefits">
+                <h4>Key Benefits & Challenges</h4>
+                <div class="benefits-list">
+                    <div class="benefit-item">Supports long-running processes</div>
+                    <div class="benefit-item">Loose coupling between services</div>
+                    <div class="benefit-item">Easy to understand workflow</div>
+                    <div class="benefit-item">Requires careful state management</div>
+                    <div class="benefit-item">Compensation must be idempotent</div>
+                    <div class="benefit-item">Difficult to debug distributed issues</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pattern 2: Circuit Breaker -->
+        <div class="section">
+            <div class="pattern-header">
+                <span class="pattern-tag">PATTERN 2</span>
+                Circuit Breaker (Resilience)
+            </div>
+            
+            <div class="description">
+                The Circuit Breaker pattern prevents cascading failures by failing fast when downstream services are unavailable. It monitors call success rates and transitions between three states: CLOSED (normal), OPEN (failing fast), and HALF_OPEN (testing recovery).
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>JAVA</span> Oracle Service Circuit Breaker Configuration
+                </div>
+                <pre><code class="language-java">@Component
+public class OracleServiceCircuitBreaker {
+    private final CircuitBreaker circuitBreaker;
+    private final OracleSCMClient oracleSCMClient;
+    
+    public OracleServiceCircuitBreaker(OracleSCMClient client) {
+        this.oracleSCMClient = client;
+        
+        // Configure circuit breaker
+        CircuitBreakerConfig config = CircuitBreakerConfig.custom()
+            .failureRateThreshold(50)        // Open if 50% fail
+            .waitDurationInOpenState(Duration.ofSeconds(60))  // Try again after 60s
+            .permittedNumberOfCallsInHalfOpenState(3)  // Allow 3 calls in half-open
+            .automaticTransitionFromOpenToHalfOpenEnabled(true)
+            .build();
+        
+        this.circuitBreaker = CircuitBreaker.of("oracle-scm", config);
+        
+        // Add event listeners
+        circuitBreaker.getEventPublisher()
+            .onStateTransition(event -> {
+                logger.warn("Circuit breaker state: {} -> {}",
+                    event.getStateTransition().getFromState(),
+                    event.getStateTransition().getToState());
+                
+                // Alert ops team if opened
+                if (event.getStateTransition().getToState() == State.OPEN) {
+                    alertOpsTeam("Oracle SCM service circuit breaker opened");
+                }
+            });
+    }
+    
+    public OracleOrderResponse createOrder(OrderRequest request) {
+        try {
+            return circuitBreaker.executeSupplier(() ->
+                oracleSCMClient.createOrder(request)
+            );
+        } catch (CallNotPermittedException e) {
+            // Circuit is open, fail fast
+            logger.error("Circuit breaker open, cannot call Oracle service");
+            throw new ServiceUnavailableException("Oracle SCM service temporarily unavailable");
+        }
+    }
+}</code></pre>
+            </div>
+            
+            <div class="pattern-benefits">
+                <h4>Circuit Breaker States</h4>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>State</th>
+                            <th>Behavior</th>
+                            <th>Transition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CLOSED</strong></td>
+                            <td>Requests pass through normally</td>
+                            <td>→ OPEN if failure rate > 50%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>OPEN</strong></td>
+                            <td>All requests fail immediately</td>
+                            <td>→ HALF_OPEN after 60s wait</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HALF_OPEN</strong></td>
+                            <td>Allow test requests (3 calls)</td>
+                            <td>→ CLOSED if successful, OPEN if fails</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Pattern 3: Event Sourcing -->
+        <div class="section">
+            <div class="pattern-header">
+                <span class="pattern-tag">PATTERN 3</span>
+                Event Sourcing (Audit Trail)
+            </div>
+            
+            <div class="description">
+                Event Sourcing stores every state change as an immutable event instead of just storing current state. This creates a complete audit trail and enables state reconstruction. Perfect for compliance requirements and debugging.
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>JAVA</span> Order Event Sourcing Service
+                </div>
+                <pre><code class="language-java">@Component
+public class OrderEventSourcingService {
+    
+    @Autowired
+    private OrderEventRepository eventRepository;
+    
+    @Autowired
+    private KafkaProducerService kafkaProducer;
+    
+    /**
+     * Store every state change as an event
+     * This creates a complete audit trail
+     */
+    public void recordOrderEvent(
+        String orderId,
+        OrderEvent event) {
+        
+        // Store event in event store (audit table)
+        OrderEventRecord eventRecord = new OrderEventRecord();
+        eventRecord.setOrderId(orderId);
+        eventRecord.setEventType(event.getType());
+        eventRecord.setEventData(event.getData());
+        eventRecord.setTimestamp(LocalDateTime.now());
+        eventRecord.setActor(getCurrentUser());
+        
+        eventRepository.save(eventRecord);
+        
+        // Publish to Kafka for downstream consumers
+        kafkaProducer.publishEvent(
+            "SCM_Order_Events",
+            eventRecord
+        );
+    }
+    
+    /**
+     * Rebuild current state from events
+     * Useful for debugging and compliance audits
+     */
+    public OrderState rebuildStateFromEvents(String orderId) {
+        List<OrderEventRecord> events =
+            eventRepository.findByOrderIdOrderByTimestampAsc(orderId);
+        
+        OrderState state = new OrderState();
+        
+        for (OrderEventRecord event : events) {
+            state.apply(event);
+        }
+        
+        return state;
+    }
+    
+    /**
+     * Example events for Order lifecycle:
+     * - ORDER_CREATED: Initial order created
+     * - ORDER_VALIDATED: Passed all validations
+     * - ORDER_SUBMITTED_TO_ORACLE: Sent to ERP
+     * - ORDER_APPROVED_IN_ORACLE: Approved in ERP
+     * - ORDER_RECEIPTED: Goods received
+     * - ORDER_INVOICED: Invoice created
+     * - ORDER_PAID: Payment processed
+     */
+}</code></pre>
+            </div>
+            
+            <div class="pattern-benefits">
+                <h4>Benefits & Considerations</h4>
+                <div class="benefits-list">
+                    <div class="benefit-item">Complete audit trail for compliance</div>
+                    <div class="benefit-item">Time-travel debugging (replay to any point)</div>
+                    <div class="benefit-item">Enable event-driven architecture</div>
+                    <div class="benefit-item">Requires event versioning strategy</div>
+                    <div class="benefit-item">Database grows continuously</div>
+                    <div class="benefit-item">Must implement event projection/views</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pattern 4: CQRS -->
+        <div class="section">
+            <div class="pattern-header">
+                <span class="pattern-tag">PATTERN 4</span>
+                CQRS (Command Query Responsibility Segregation)
+            </div>
+            
+            <div class="description">
+                CQRS separates read and write operations into different models. The Write side (Command) handles state changes with strong consistency. The Read side (Query) uses an optimized denormalized view for fast reads with eventual consistency.
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>JAVA</span> CQRS - Write Side (Commands)
+                </div>
+                <pre><code class="language-java">// ============================================================
+// WRITE SIDE: Command (State Changes)
+// ============================================================
+
+@Component
+public class OrderCommandService {
+    
+    @Autowired
+    private KafkaProducerService kafkaProducer;
+    
+    @Autowired
+    private OrderRepository orderRepository;
+    
+    @Transactional
+    public void createOrder(CreateOrderCommand command) {
+        // Write to local DB
+        Order order = new Order();
+        order.setOrderNumber(command.getOrderNumber());
+        order.setSupplier(command.getSupplier());
+        order.setTotalAmount(command.getTotalAmount());
+        order.setStatus(OrderStatus.DRAFT);
+        
+        orderRepository.save(order);
+        
+        // Publish event to sync read model
+        kafkaProducer.publishEvent(
+            "SCM_Order_Commands",
+            new OrderCreatedEvent(order)
+        );
+    }
+}</code></pre>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>JAVA</span> CQRS - Read Side (Queries with Caching)
+                </div>
+                <pre><code class="language-java">// ============================================================
+// READ SIDE: Query (Optimized for fast reads)
+// ============================================================
+
+@Component
+public class OrderQueryService {
+    
+    @Autowired
+    private OrderReadRepository readRepository;
+    
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+    
+    /**
+     * Query read model - optimized for fast reads
+     * Read model is denormalized for specific query patterns
+     */
+    public List<OrderReadModel> queryOrdersBySupplier(String supplierId) {
+        
+        // Try cache first (very fast)
+        String cacheKey = "orders:supplier:" + supplierId;
+        List<?> cached = (List<?>) redisTemplate.opsForValue().get(cacheKey);
+        if (cached != null) {
+            return (List<OrderReadModel>) cached;
+        }
+        
+        // Query read model (optimized database view)
+        List<OrderReadModel> results =
+            readRepository.findBySupplierId(supplierId);
+        
+        // Cache for 5 minutes
+        redisTemplate.opsForValue().set(cacheKey, results, Duration.ofMinutes(5));
+        
+        return results;
+    }
+    
+    /**
+     * Subscribe to events to keep read model in sync
+     * This is an eventual consistency model
+     */
+    @KafkaListener(topics = "SCM_Order_Events",
+                   groupId = "order-query-service-group")
+    public void onOrderEvent(OrderEventRecord event) {
+        // Update read model with new event
+        readRepository.updateFromEvent(event);
+        
+        // Invalidate cache so next query gets fresh data
+        String cacheKey = "orders:supplier:" + event.getSupplierId();
+        redisTemplate.delete(cacheKey);
+        
+        logger.info("Updated read model for order: {}", event.getOrderId());
+    }
+}</code></pre>
+            </div>
+            
+            <div class="pattern-benefits">
+                <h4>CQRS Benefits & Considerations</h4>
+                <div class="benefits-list">
+                    <div class="benefit-item">Independent scaling of read and write</div>
+                    <div class="benefit-item">Query optimization for specific patterns</div>
+                    <div class="benefit-item">Caching-friendly denormalized views</div>
+                    <div class="benefit-item">Eventual consistency tradeoff</div>
+                    <div class="benefit-item">Two separate models to maintain</div>
+                    <div class="benefit-item">Cache invalidation challenges</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pattern Comparison -->
+        <div class="section">
+            <div class="section-title">Pattern Comparison & Selection</div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>Use Case</th>
+                        <th>Consistency</th>
+                        <th>Complexity</th>
+                        <th>Scalability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Saga</strong></td>
+                        <td>Long-running workflows</td>
+                        <td>Eventual</td>
+                        <td>High</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Circuit Breaker</strong></td>
+                        <td>Resilience, prevent cascading</td>
+                        <td>Strong</td>
+                        <td>Low</td>
+                        <td>Medium</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Event Sourcing</strong></td>
+                        <td>Audit trail, compliance</td>
+                        <td>Strong</td>
+                        <td>High</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CQRS</strong></td>
+                        <td>Complex queries, read-heavy</td>
+                        <td>Eventual</td>
+                        <td>High</td>
+                        <td>Very High</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>
